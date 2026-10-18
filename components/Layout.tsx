@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Navbar from "./Navbar";
 
 type TLayoutProps = { children: React.ReactNode };
@@ -6,7 +6,9 @@ type TLayoutProps = { children: React.ReactNode };
 function Layout({ children }: TLayoutProps) {
   return (
     <div>
-      <Navbar />
+      <Suspense fallback={null}>
+        <Navbar />
+      </Suspense>
       {children}
     </div>
   );
