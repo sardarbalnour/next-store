@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-type TProductItemProps = {
+export type TProductItemProps = {
   id: string;
   title: string;
   image: string;
