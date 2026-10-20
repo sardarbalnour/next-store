@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+
 import "./globals.css";
+
 import Layout from "@/components/Layout";
+import ShoppingCartContextProvider from "@/context/ShoppingCartContext";
 
 export const metadata: Metadata = {
   title: "Sardar store",
@@ -11,7 +14,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
       <body>
-        <Layout> {children}</Layout>
+        <ShoppingCartContextProvider>
+          <Layout> {children}</Layout>
+        </ShoppingCartContextProvider>
       </body>
     </html>
   );
