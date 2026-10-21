@@ -2,12 +2,22 @@
 
 import { useShoppingCartContext } from "@/context/ShoppingCartContext";
 
-function AddToCart() {
-  const { cartItems } = useShoppingCartContext();
+type AddToCartProps = {
+  id: string;
+};
+
+function AddToCart({ id }: AddToCartProps) {
+  const { cartItems, handleIncreaseProductQuantity } = useShoppingCartContext();
+console.log(cartItems)
 
   return (
     <div>
-      <button className="px-4 py-1.5 rounded-xl bg-sky-300">+</button>
+      <button
+        onClick={() => handleIncreaseProductQuantity(id)}
+        className="px-4 py-1.5 rounded-xl bg-sky-300"
+      >
+        +
+      </button>
       <span className="mx-3">3</span>
       <button className="px-4 py-1.5 rounded-xl bg-sky-300">-</button>
     </div>

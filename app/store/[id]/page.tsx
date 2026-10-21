@@ -26,7 +26,7 @@ async function Product({ params }: ProductProps) {
           <p>
             قیمت :<span>${data.price}</span>
           </p>
-          <AddToCart />
+          <AddToCart id={id}/>
         </div>
         <div className="col-span-3">
           <Image src={data.image} alt="" width={300} height={200} />
