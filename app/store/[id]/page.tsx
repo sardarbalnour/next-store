@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import Container from "@/components/Container";
 import { TProductItemProps } from "@/components/ProductItem";
+import AddToCart from "@/components/AddToCart";
 
 type ProductProps = {
   params: Promise<{ id: string }>;
@@ -25,11 +26,7 @@ async function Product({ params }: ProductProps) {
           <p>
             قیمت :<span>${data.price}</span>
           </p>
-          <div>
-            <button className="px-4 py-1.5 rounded-xl bg-sky-300">+</button>
-            <span className="mx-3">3</span>
-            <button className="px-4 py-1.5 rounded-xl bg-sky-300">-</button>
-          </div>
+          <AddToCart />
         </div>
         <div className="col-span-3">
           <Image src={data.image} alt="" width={300} height={200} />
