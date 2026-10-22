@@ -15,6 +15,7 @@ type TShoppingCartContext = {
   handleIncreaseProductQuantity: (id: string) => void;
   getProductQuantity: (id: string) => number;
   cartTotalQuantity: number;
+  decreaseProductQuantity: (id: string) => void;
 };
 
 const ShoppingCartContext = createContext({} as TShoppingCartContext);
@@ -51,6 +52,18 @@ function ShoppingCartContextProvider({
     });
   };
 
+  const decreaseProductQuantity = (id: string) => {
+    setCartItems((currentItems) =>
+      currentItems
+        .map((item) =>
+          item.id === id
+            ? { ...item, quantity: Math.max(0, item.quantity - 1) }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
+  };
+
   return (
     <ShoppingCartContext
       value={{
@@ -58,6 +71,7 @@ function ShoppingCartContextProvider({
         handleIncreaseProductQuantity,
         getProductQuantity,
         cartTotalQuantity,
+        decreaseProductQuantity,
       }}
     >
       {children}
