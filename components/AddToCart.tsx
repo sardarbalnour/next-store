@@ -7,8 +7,9 @@ type AddToCartProps = {
 };
 
 function AddToCart({ id }: AddToCartProps) {
-  const { cartItems, handleIncreaseProductQuantity } = useShoppingCartContext();
-console.log(cartItems)
+  const { cartItems, handleIncreaseProductQuantity, getProductQuantity } =
+    useShoppingCartContext();
+  console.log(cartItems);
 
   return (
     <div>
@@ -18,7 +19,7 @@ console.log(cartItems)
       >
         +
       </button>
-      <span className="mx-3">3</span>
+      <span className="mx-3">{getProductQuantity(id)}</span>
       <button className="px-4 py-1.5 rounded-xl bg-sky-300">-</button>
     </div>
   );
