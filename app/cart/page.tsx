@@ -1,12 +1,36 @@
 "use client";
+import { useEffect, useState } from "react";
 
 import { useShoppingCartContext } from "@/context/ShoppingCartContext";
 
 import CartItem from "@/components/CartItem";
 import Container from "@/components/Container";
+import { toEnglishDigits } from "@/helper/helper";
+
+import { TProductItemProps } from "@/components/ProductItem";
 
 function Cart() {
   const { cartItems } = useShoppingCartContext();
+
+  const [data, setData] = useState<TProductItemProps[]>([]);
+
+  useEffect(() => {
+    const getProduct = async () => {
+      const res = await fetch(`http://localhost:3005/products`);
+      const data = await res.json();
+
+      setData(data);
+    };
+    getProduct();
+  }, []);
+
+  const totalPrice = cartItems.reduce((total, cartItem) => {
+    const product = data.find((item) => item.id === cartItem.id);
+
+    if (!product) return total;
+
+    return total + Number(toEnglishDigits(product.price)) * cartItem.quantity;
+  }, 0);
 
   return (
     <Container>
@@ -18,7 +42,7 @@ function Cart() {
       </div>
       <div className="border shadow-md rtl p-4">
         <h3>
-          total price : <span>879$</span>
+          total price : <span>{totalPrice.toLocaleString("en-US")}$</span>
         </h3>
         <h3>
           soode shoma az in xarid : <span>30$</span>
