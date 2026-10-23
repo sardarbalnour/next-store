@@ -8,40 +8,51 @@ type AddToCartProps = {
 
 function AddToCart({ id }: AddToCartProps) {
   const {
-    cartItems,
     handleIncreaseProductQuantity,
     getProductQuantity,
     decreaseProductQuantity,
     deleteFromCart,
   } = useShoppingCartContext();
-  console.log(cartItems);
+
+  const quantity = getProductQuantity(id);
 
   return (
-    <div>
-      <div>
-        <button
-          onClick={() => handleIncreaseProductQuantity(id)}
-          className="px-4 py-1.5 rounded-xl bg-sky-300"
-        >
-          +
-        </button>
-        <span className="mx-3">{getProductQuantity(id)}</span>
-        <button
-          onClick={() => decreaseProductQuantity(id)}
-          className="px-4 py-1.5 rounded-xl bg-sky-300"
-        >
-          -
-        </button>
-      </div>
+    <div className="flex items-center gap-2 w-36">
       <button
-        className="rounded-lg text-red-50 px-4 py-2 text-sm font-medium
-        bg-red-600 transition-colors duration-200 hover:scale-110
-        active:bg-red-200 focus-visible:outline-2 mt-2
-        focus-visible:outline-offset-2 focus-visible:outline-red-600"
-        onClick={() => deleteFromCart(id)}
+        type="button"
+        onClick={() => handleIncreaseProductQuantity(id)}
+        className={`rounded-xl flex items-center justify-center shrink-0
+        bg-green-300 py-1.5 text-sm font-medium
+        transition hover:bg-green-400 active:scale-95
+        ${quantity === 0 ? "px-4" : "w-14"}`}
       >
-        حذف
+        {quantity === 0 ? "افزودن به سبد خرید" : "+"}
       </button>
+
+      {quantity > 0 && (
+        <span className="min-w-5 text-center font-semibold tabular-nums">
+          {quantity}
+        </span>
+      )}
+
+      {quantity > 0 &&
+        (quantity === 1 ? (
+          <button
+            type="button"
+            onClick={() => deleteFromCart(id)}
+            className="rounded-xl w-14 bg-red-600  py-1.5 text-sm font-medium text-white transition hover active"
+          >
+            حذف
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => decreaseProductQuantity(id)}
+            className="rounded-xl w-14 bg-red-600  py-1.5 text-sm font-medium text-white transition hover active"
+          >
+            -
+          </button>
+        ))}
     </div>
   );
 }
