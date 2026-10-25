@@ -8,11 +8,19 @@ import Container from "@/components/Container";
 import { toEnglishDigits } from "@/helper/helper";
 
 import { TProductItemProps } from "@/components/ProductItem";
+type DiscountData = {
+  id: number;
+  code: string;
+  percentage: number;
+};
 
 function Cart() {
   const { cartItems } = useShoppingCartContext();
 
   const [data, setData] = useState<TProductItemProps[]>([]);
+  const [discountCode, setDiscountCode] = useState("");
+  const [finalPrice, setFinalPrice] = useState(0);
+  const [discountedPrice, setDiscountedPrice] = useState(0);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -32,6 +40,28 @@ function Cart() {
     return total + Number(toEnglishDigits(product.price)) * cartItem.quantity;
   }, 0);
 
+  const handleApplyDiscount = async () => {
+    const res = await fetch(
+      `http://localhost:3005/discounts?code=${discountCode}`
+    );
+
+    const result = (await res.json()) as DiscountData[];
+
+    if (result.length === 0) {
+      setFinalPrice(totalPrice);
+      setDiscountedPrice(0);
+      alert("کد تخفیف معتبر نیست");
+      return;
+    }
+
+    const discountedPrice = (totalPrice * result[0].percentage) / 100;
+
+    const finalPrice = totalPrice - discountedPrice;
+
+    setFinalPrice(finalPrice);
+    setDiscountedPrice(discountedPrice);
+  };
+
   return (
     <Container>
       <h1 className="rtl my-4">سبد خرید</h1>
@@ -42,22 +72,29 @@ function Cart() {
       </div>
       <div className="border shadow-md rtl p-4">
         <h3>
-          total price : <span>{totalPrice.toLocaleString("en-US")}$</span>
+          قیمت کل : <span>{totalPrice.toLocaleString("en-US")}$</span>
         </h3>
         <h3>
-          soode shoma az in xarid : <span>30$</span>
+          سود شما از این خرید :
+          <span>{discountedPrice.toLocaleString("en-US")}$</span>
         </h3>
         <h3>
-          qimqte nahayi : <span>849$</span>
+          قیمت نهایی : <span>{finalPrice.toLocaleString("en-US")}$</span>
         </h3>
         <div>
           <input
             type="text"
-            placeholder="discount code"
+            placeholder="کد تخفیف را وارد کنید"
             className="rtl border"
+            onChange={(e) => {
+              setDiscountCode(e.target.value);
+            }}
           />
-          <button className="bg-sky-600 text-white px-4 py-1 rounded">
-            apply
+          <button
+            onClick={handleApplyDiscount}
+            className="bg-sky-600 text-white px-4 py-1 rounded"
+          >
+            اعمال
           </button>
         </div>
       </div>
