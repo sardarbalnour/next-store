@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 type ShoppingCartContextProviderProps = {
   children: React.ReactNode;
@@ -29,6 +29,7 @@ function ShoppingCartContextProvider({
   children,
 }: ShoppingCartContextProviderProps) {
   const [cartItems, setCartItems] = useState<CartItems[]>([]);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const cartTotalQuantity = cartItems.reduce(
     (total, item) => total + item.quantity,
@@ -70,6 +71,22 @@ function ShoppingCartContextProvider({
       currentItems.filter((item) => item.id !== id)
     );
   };
+
+  useEffect(() => {
+    const storedCartItems = localStorage.getItem("cartItems");
+
+    if (storedCartItems) {
+      setCartItems(JSON.parse(storedCartItems));
+    }
+
+    setIsInitialized(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isInitialized) return;
+
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems, isInitialized]);
 
   return (
     <ShoppingCartContext
