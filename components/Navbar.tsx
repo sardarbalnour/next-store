@@ -13,6 +13,7 @@ function Navbar() {
   const navLinks = [
     { href: "/", title: "خانه " },
     { href: "/store", title: " فروشگاه " },
+    { href: "/dashboard", title: " دشبورد " },
   ];
 
   return (
