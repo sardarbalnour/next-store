@@ -14,6 +14,7 @@ function Navbar() {
     { href: "/", title: "خانه " },
     { href: "/store", title: " فروشگاه " },
     { href: "/dashboard", title: " دشبورد " },
+    { href: "/orders", title: "سفارش ها" },
   ];
 
   return (
