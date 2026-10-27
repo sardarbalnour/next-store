@@ -5,70 +5,70 @@
       "title": "راکون بازیگوش",
       "image": "/animal_raccoon_minimalism_76117_1680x1050.jpg",
       "description": "راکونی که لحظه های شما رو شاد میکنه.",
-      "price": "۲۵"
+      "price": 150
     },
     {
       "id": "2",
-      "title": "راکون ",
+      "title": "راکون",
       "image": "/animal_raccoon_minimalism_76117_1680x1050.jpg",
       "description": "راکونی که لحظه های شما رو شاد میکنه.",
-      "price": "۲۵"
+      "price": 240
     },
     {
       "id": "3",
-      "title": " بازیگوش",
+      "title": "بازیگوش",
       "image": "/animal_raccoon_minimalism_76117_1680x1050.jpg",
       "description": "راکونی که لحظه های شما رو شاد میکنه.",
-      "price": "۲۵"
+      "price": 467
     },
     {
       "id": "4",
       "title": "راکون بازیگوش",
       "image": "/animal_raccoon_minimalism_76117_1680x1050.jpg",
       "description": "راکونی که لحظه های شما رو شاد میکنه.",
-      "price": "۲۵"
+      "price": 23
     },
     {
       "id": "5",
       "title": "راکون بازیگوش",
       "image": "/animal_raccoon_minimalism_76117_1680x1050.jpg",
       "description": "راکونی که لحظه های شما رو شاد میکنه.",
-      "price": "۲۵"
+      "price": 98
     },
     {
       "id": "6",
       "title": "راکون بازیگوش",
       "image": "/animal_raccoon_minimalism_76117_1680x1050.jpg",
       "description": "راکونی که لحظه های شما رو شاد میکنه.",
-      "price": "۲۵"
+      "price": 122
     },
     {
       "id": "7",
-      "title": "راکون ",
+      "title": "راکون",
       "image": "/animal_raccoon_minimalism_76117_1680x1050.jpg",
       "description": "راکونی که لحظه های شما رو شاد میکنه.",
-      "price": "۲۵"
+      "price": 3343
     },
     {
       "id": "8",
-      "title": " بازیگوش",
+      "title": "بازیگوش",
       "image": "/animal_raccoon_minimalism_76117_1680x1050.jpg",
       "description": "راکونی که لحظه های شما رو شاد میکنه.",
-      "price": "۲۵"
+      "price": 232
     },
     {
       "id": "9",
       "title": "راکون بازیگوش",
       "image": "/animal_raccoon_minimalism_76117_1680x1050.jpg",
       "description": "راکونی که لحظه های شما رو شاد میکنه.",
-      "price": "۲۵"
+      "price": 121
     },
     {
       "id": "10",
       "title": "راکون بازیگوش",
       "image": "/animal_raccoon_minimalism_76117_1680x1050.jpg",
       "description": "راکونی که لحظه های شما رو شاد میکنه.",
-      "price": "۲۵"
+      "price": 44
     }
   ],
   "discounts": [
@@ -104,6 +104,5 @@
       "status": "pending",
       "id": "vWzpkKkO3pQ"
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }
