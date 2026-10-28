@@ -77,7 +77,7 @@ export default function Search() {
 
     const params = new URLSearchParams(searchParams.toString());
 
-    params.delete("search");
+    params.delete("title");
     params.delete("page");
 
     const queryString = params.toString();
