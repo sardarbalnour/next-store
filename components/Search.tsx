@@ -1,133 +1,85 @@
 "use client";
 
+import { Search as SearchIcon, X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import { useState, type SubmitEvent } from "react";
 
-function SearchIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <circle cx="11" cy="11" r="8" />
-      <path d="m21 21-4.35-4.35" />
-    </svg>
-  );
-}
+type SearchFormProps = {
+  currentSearch: string;
+};
 
-function ClearIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
-}
-
-export default function Search() {
+function SearchForm({ currentSearch }: SearchFormProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-
-  const currentSearch = searchParams.get("title") ?? "";
   const [search, setSearch] = useState(currentSearch);
 
-  function handleSearch(event: React.SubmitEvent<HTMLFormElement>) {
-    event.preventDefault();
-    // By default, submitting an HTML form can cause a request to be sent and the page to be reloaded.
-    // We want to handle the routing ourselves with router.push() , so we'll override the default behavior.
-
+  function navigate(value: string) {
     const params = new URLSearchParams(searchParams.toString());
-    const value = search.trim();
+    const query = value.trim();
 
-    if (value) {
-      params.set("title", value);
+    if (query) {
+      params.set("title", query);
     } else {
       params.delete("title");
     }
 
-    // شروع جست‌وجوی جدید از صفحه اول
     params.delete("page");
-
     const queryString = params.toString();
-
     router.push(queryString ? `/store?${queryString}` : "/store");
+  }
+
+  function handleSearch(event: SubmitEvent<HTMLFormElement>) {
+    event.preventDefault();
+    navigate(search);
   }
 
   function handleClear() {
     setSearch("");
-
-    const params = new URLSearchParams(searchParams.toString());
-
-    params.delete("title");
-    params.delete("page");
-
-    const queryString = params.toString();
-
-    router.push(queryString ? `/store?${queryString}` : "/store");
+    navigate("");
   }
 
   return (
     <form
       onSubmit={handleSearch}
       role="search"
-      className="flex w-full rtl max-w-md items-center gap-2
-       rounded-xl border border-gray-300 bg-white
-        px-3 py-2 shadow-sm transition focus-within:border-blue-500
-         focus-within:ring-2 focus-within:ring-blue-100"
+      className="flex w-full items-center gap-2 rounded-2xl border border-white/80 bg-white p-2 shadow-lg shadow-stone-900/5 transition focus-within:border-emerald-700 focus-within:ring-4 focus-within:ring-emerald-700/10"
     >
-      <span className="shrink-0 text-gray-400">
-        <SearchIcon />
-      </span>
-
+      <SearchIcon
+        size={20}
+        className="mr-2 shrink-0 text-stone-400"
+        aria-hidden="true"
+      />
       <input
         type="search"
         value={search}
         onChange={(event) => setSearch(event.target.value)}
         placeholder="جست‌وجوی محصولات..."
         aria-label="جست‌وجوی محصولات"
-        className="min-w-0 flex-1 bg-transparent text-sm
-         text-gray-800 outline-none placeholder:text-gray-400 
-         appearance:none [&::-webkit-search-cancel-button]:hidden"
+        className="min-w-0 flex-1 bg-transparent py-2 text-sm text-stone-800 outline-none placeholder:text-stone-400 [&::-webkit-search-cancel-button]:hidden"
       />
-
       {search && (
         <button
           type="button"
           onClick={handleClear}
           aria-label="پاک کردن جست‌وجو"
-          className="shrink-0 rounded-md p-1 text-gray-400
-           transition hover:bg-gray-100 hover:text-gray-700"
+          className="inline-flex size-9 shrink-0 items-center justify-center rounded-full text-stone-400 transition hover:bg-stone-100 hover:text-stone-700"
         >
-          <ClearIcon />
+          <X size={17} aria-hidden="true" />
         </button>
       )}
-
       <button
         type="submit"
-        className="shrink-0 rounded-lg bg-blue-600 px-4 py-2
-         text-sm font-medium text-white transition hover:bg-blue-700"
+        className="shrink-0 rounded-xl bg-emerald-800 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-800"
       >
         جست‌وجو
       </button>
     </form>
   );
+}
+
+export default function Search() {
+  const searchParams = useSearchParams();
+  const currentSearch = searchParams.get("title") ?? "";
+
+  return <SearchForm key={currentSearch} currentSearch={currentSearch} />;
 }

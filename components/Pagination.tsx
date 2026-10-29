@@ -21,26 +21,34 @@ function Pagination({ pageCount }: { pageCount: number }) {
   };
 
   return (
-    <div className="mt-10 flex justify-center" dir="rtl">
+    <nav
+      aria-label="صفحه‌بندی محصولات"
+      className="mt-12 flex justify-center border-t border-stone-200 pt-7"
+      dir="rtl"
+    >
       <ReactPaginate
         breakLabel="..."
         nextLabel="بعدی ←"
         previousLabel="→ قبلی"
+        previousAriaLabel="صفحه قبلی"
+        nextAriaLabel="صفحه بعدی"
         onPageChange={handlePageClick}
         pageRangeDisplayed={3}
         marginPagesDisplayed={1}
         pageCount={pageCount}
         renderOnZeroPageCount={null}
-        containerClassName="flex items-center gap-2"
-        pageClassName="flex h-10 min-w-10 cursor-pointer items-center justify-center rounded-xl border border-gray-200 transition hover:border-blue-500 hover:text-blue-600"
-        pageLinkClassName="flex h-full w-full cursor-pointer items-center justify-center px-3"
-        activeClassName="!border-blue-500 bg-blue-500 text-white hover:text-white"
-        previousClassName="flex h-10 cursor-pointer items-center justify-center rounded-xl border border-gray-200 px-3 transition hover:border-blue-500 hover:text-blue-600"
-        nextClassName="flex h-10 cursor-pointer items-center justify-center rounded-xl border border-gray-200 px-3 transition hover:border-blue-500 hover:text-blue-600"
-        disabledClassName="cursor-not-allowed opacity-40"
-        breakClassName="px-2 text-gray-500"
+        containerClassName="flex max-w-full items-center gap-1.5 rounded-2xl border border-stone-200 bg-white p-2 shadow-sm sm:gap-2"
+        pageClassName="flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-xl text-sm font-semibold text-stone-600 transition hover:bg-emerald-50 hover:text-emerald-900"
+        pageLinkClassName="flex size-full items-center justify-center rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-800"
+        activeClassName="!bg-emerald-800 !text-white shadow-sm shadow-emerald-900/20 hover:!bg-emerald-900 hover:!text-white"
+        previousClassName="flex h-10 shrink-0 cursor-pointer items-center justify-center rounded-xl px-2.5 text-xs font-semibold text-stone-600 transition hover:bg-emerald-50 hover:text-emerald-900 sm:px-3 sm:text-sm"
+        previousLinkClassName="flex h-full items-center justify-center rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-800"
+        nextClassName="flex h-10 shrink-0 cursor-pointer items-center justify-center rounded-xl px-2.5 text-xs font-semibold text-stone-600 transition hover:bg-emerald-50 hover:text-emerald-900 sm:px-3 sm:text-sm"
+        nextLinkClassName="flex h-full items-center justify-center rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-800"
+        disabledClassName="cursor-not-allowed opacity-40 hover:bg-transparent hover:text-stone-600"
+        breakClassName="flex h-10 min-w-5 items-center justify-center text-stone-400"
       />
-    </div>
+    </nav>
   );
 }
 
